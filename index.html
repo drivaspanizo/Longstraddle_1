@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Options Straddle Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="header-title">Options Straddle Dashboard</h1>
+                <nav class="header-nav">
+                    <button class="nav-btn active" data-section="dashboard">Dashboard</button>
+                    <button class="nav-btn" data-section="calculator">Calculator</button>
+                    <button class="nav-btn" data-section="strategies">Strategies</button>
+                    <button class="nav-btn" data-section="calendar">Earnings</button>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Main Container -->
+        <div class="main-container">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <div class="sidebar-content">
+                    <div class="sidebar-section">
+                        <h3>Quick Actions</h3>
+                        <button class="sidebar-btn" data-section="calculator">New Strategy</button>
+                        <button class="sidebar-btn" data-section="strategies">View Strategies</button>
+                        <button class="sidebar-btn" data-section="calendar">Earnings Calendar</button>
+                    </div>
+                    <div class="sidebar-section">
+                        <h3>Market Status</h3>
+                        <div class="market-status">
+                            <div class="status-item">
+                                <span class="status-label">VIX</span>
+                                <span class="status-value">16.24</span>
+                            </div>
+                            <div class="status-item">
+                                <span class="status-label">S&P 500</span>
+                                <span class="status-value status-positive">5,346.12</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="main-content">
+                <!-- Dashboard Section -->
+                <section id="dashboard" class="content-section active">
+                    <div class="dashboard-header">
+                        <h2>Market Overview</h2>
+                        <p class="dashboard-subtitle">Monitor your options strategies and market opportunities</p>
+                    </div>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">📊</div>
+                            <div class="stat-content">
+                                <h3 class="stat-number" id="total-strategies">0</h3>
+                                <p class="stat-label">Total Strategies</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">📈</div>
+                            <div class="stat-content">
+                                <h3 class="stat-number" id="active-strategies">0</h3>
+                                <p class="stat-label">Active Strategies</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">💰</div>
+                            <div class="stat-content">
+                                <h3 class="stat-number" id="total-premium">$0</h3>
+                                <p class="stat-label">Total Premium at Risk</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">📅</div>
+                            <div class="stat-content">
+                                <h3 class="stat-number" id="upcoming-earnings">20</h3>
+                                <p class="stat-label">Upcoming Earnings</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="recent-activity">
+                        <h3>Recent Activity</h3>
+                        <div class="activity-list" id="activity-list">
+                            <div class="activity-item">
+                                <span class="activity-time">Welcome to your Options Straddle Dashboard</span>
+                                <span class="activity-desc">Start by creating your first strategy using the calculator</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Calculator Section -->
+                <section id="calculator" class="content-section">
+                    <div class="section-header">
+                        <h2>Straddle Calculator</h2>
+                        <p>Calculate profit/loss scenarios for your long straddle strategies</p>
+                    </div>
+
+                    <div class="calculator-container">
+                        <div class="calculator-form">
+                            <form id="straddle-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label" for="stock-symbol">Stock Symbol</label>
+                                        <select class="form-control" id="stock-symbol" required>
+                                            <option value="">Select a company...</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="earnings-date">Earnings Date</label>
+                                        <input type="date" class="form-control" id="earnings-date" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label" for="strike-price">Strike Price ($)</label>
+                                        <input type="number" class="form-control" id="strike-price" step="0.01" min="0" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="call-premium">Call Premium ($)</label>
+                                        <input type="number" class="form-control" id="call-premium" step="0.01" min="0" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label" for="put-premium">Put Premium ($)</label>
+                                        <input type="number" class="form-control" id="put-premium" step="0.01" min="0" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="notes">Notes (Optional)</label>
+                                        <input type="text" class="form-control" id="notes" placeholder="Strategy notes...">
+                                    </div>
+                                </div>
+
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn--primary">Calculate Strategy</button>
+                                    <button type="button" class="btn btn--secondary" id="save-strategy">Save Strategy</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="calculation-results" id="calculation-results">
+                            <h3>Strategy Results</h3>
+                            <div class="results-grid">
+                                <div class="result-card loss-card">
+                                    <h4>Maximum Loss</h4>
+                                    <div class="result-value" id="max-loss">-</div>
+                                    <p class="result-desc">Total premium paid</p>
+                                </div>
+                                <div class="result-card profit-card">
+                                    <h4>Maximum Gain</h4>
+                                    <div class="result-value" id="max-gain">Unlimited</div>
+                                    <p class="result-desc">Theoretically unlimited</p>
+                                </div>
+                                <div class="result-card breakeven-card">
+                                    <h4>Upper Breakeven</h4>
+                                    <div class="result-value" id="upper-breakeven">-</div>
+                                    <p class="result-desc">Strike + total premium</p>
+                                </div>
+                                <div class="result-card breakeven-card">
+                                    <h4>Lower Breakeven</h4>
+                                    <div class="result-value" id="lower-breakeven">-</div>
+                                    <p class="result-desc">Strike - total premium</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Strategies Section -->
+                <section id="strategies" class="content-section">
+                    <div class="section-header">
+                        <h2>Saved Strategies</h2>
+                        <p>Monitor and manage your saved straddle strategies</p>
+                    </div>
+
+                    <div class="strategies-controls">
+                        <input type="text" class="form-control search-input" id="strategies-search" placeholder="Search strategies...">
+                        <button class="btn btn--outline" id="export-strategies">Export All</button>
+                    </div>
+
+                    <div class="strategies-table-container">
+                        <table class="strategies-table">
+                            <thead>
+                                <tr>
+                                    <th>Symbol</th>
+                                    <th>Earnings Date</th>
+                                    <th>Strike Price</th>
+                                    <th>Total Premium</th>
+                                    <th>Max Loss</th>
+                                    <th>Breakeven Range</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="strategies-tbody">
+                                <tr class="empty-state">
+                                    <td colspan="8">No saved strategies yet. Use the calculator to create your first strategy.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Earnings Calendar Section -->
+                <section id="calendar" class="content-section">
+                    <div class="section-header">
+                        <h2>Earnings Calendar</h2>
+                        <p>Track upcoming earnings announcements for S&P 500 companies</p>
+                    </div>
+
+                    <div class="calendar-controls">
+                        <div class="filter-buttons">
+                            <button class="btn btn--outline filter-btn active" data-filter="all">All</button>
+                            <button class="btn btn--outline filter-btn" data-filter="next-week">Next Week</button>
+                            <button class="btn btn--outline filter-btn" data-filter="next-month">Next Month</button>
+                            <button class="btn btn--outline filter-btn" data-filter="next-quarter">Next Quarter</button>
+                        </div>
+                        <input type="text" class="form-control search-input" id="calendar-search" placeholder="Search companies...">
+                    </div>
+
+                    <div class="calendar-table-container">
+                        <table class="calendar-table">
+                            <thead>
+                                <tr>
+                                    <th class="sortable" data-sort="symbol">Symbol</th>
+                                    <th class="sortable" data-sort="company">Company Name</th>
+                                    <th class="sortable" data-sort="earnings_date">Earnings Date</th>
+                                    <th class="sortable" data-sort="market_cap">Market Cap (B)</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="calendar-tbody">
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
